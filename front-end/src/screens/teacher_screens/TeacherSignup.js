@@ -1,7 +1,7 @@
-import {React, useState} from 'react'
+import React, {useState} from 'react'
 import {useNavigate} from 'react-router-dom'
-import Layout from '../components/Layout'
-import Alert from '../components/Alert';
+import Layout from '../../components/Layout'
+import Alert from '../../components/Alert';
 
 export default function TeacherSignup() {
     const navigate = useNavigate();

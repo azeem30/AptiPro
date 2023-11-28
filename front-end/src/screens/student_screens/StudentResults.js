@@ -1,16 +1,15 @@
-import {React, useEffect, useState} from 'react'
-import Navbar from '../components/Navbar'
-import Layout from '../components/Layout'
-import Alert from '../components/Alert';
-import { useNavigate } from 'react-router-dom';
+import React, {useEffect, useState} from 'react'
+import { useNavigate } from 'react-router-dom'
+import Layout from '../../components/Layout'
+import Navbar from '../../components/Navbar'
+import Alert from '../../components/Alert'
 
-export default function TeacherResults() {
+export default function StudentResults() {
     useEffect(()=> { 
-        getTeacherSubjects(); 
+        getStudentSubjects(); 
         getResponses(); 
     }, []);
     const navigate = useNavigate();
-    var signedToken = localStorage.getItem('authToken');
     const [responses, setResponses] = useState([]);
     const [subjects, setSubjects] = useState([]);
     const [filter, setFilter] = useState('');
@@ -20,6 +19,7 @@ export default function TeacherResults() {
         status: null
     });
     const filteredResponses = filter ? responses.filter((result) => result.responseSubject === filter) : responses;
+    var signedToken = localStorage.getItem('authToken');
     let containerStyle = {
         position: 'relative',
         top: '3%',
@@ -41,7 +41,7 @@ export default function TeacherResults() {
         width: '60px',  
         height: '40px'
     };
-    const getTeacherSubjects = async () => {
+    const getStudentSubjects = async () => {
         const response = await fetch("http://localhost:8000/api/subjects", {
             method: 'POST',
             headers: {
@@ -55,7 +55,7 @@ export default function TeacherResults() {
         }else{
             setMessage({...message, info: 'Failed to fetch subjects', status: 'danger'});
         }
-    };
+    };  
     const getResponses = async () => {
         const response = await fetch("http://localhost:8000/api/fetch_responses", {
             method: 'POST',
@@ -66,7 +66,7 @@ export default function TeacherResults() {
         });
         const data = await response.json();
         if(data.success){
-            setResponses(data.combinedResults);
+            setResponses(data.results);
         }else{
             setMessage({...message, info: 'Failed to fetch responses', status: 'danger'});
         }
@@ -86,13 +86,13 @@ export default function TeacherResults() {
         }
     };
     function openResult(responseData) {
-        const side = 'teacher';
+        const side = 'student';
         navigate(`/detailed_result?data=${encodeURIComponent(JSON.stringify(responseData))}&side=${side}`);
-    };  
+    };
   return (
     <Layout>
-        <Navbar screenSide='teacher' />
-        <div style={containerStyle} className="container rounded bg-white">
+        <Navbar screenSide='student' />
+            <div style={containerStyle} className="container rounded bg-white">
                 <div className="d-flex justify-content-around">
                     <h4 style={headerStyle} className="card-title">Submitted Tests</h4>
                         <div className="btn-group my-2" style={buttonStyle}>
@@ -129,30 +129,27 @@ export default function TeacherResults() {
                 <div className="bg-secondary" style={separator}></div>
                 <div className="list-group">
                 {filteredResponses.length === 0 ? (
-                                <p className='d-flex mt-2 justify-content-center fw-normal'>You have not received any responses!</p>
+                                <p className='d-flex mt-2 justify-content-center fw-normal'>You have not submitted any responses!</p>
                             ) : (
                                 <ol className="list-group">
                                     {filteredResponses.map((result, index) => (
                                         <div className='d-flex justify-content-evenly' key={index}>
                                             <li className='d-flex w-100 my-2 justify-content-between text-wrap rounded border border-success-subtle list-group-item'>
-                                                <p className='my-2'>Roll: <span className='fw-semibold'>{result.name}</span></p>
-                                                <p className='my-2'>Name: <span className='fw-semibold'>{result.rollNo}</span></p>
-                                                <p className='my-2'>Semester: <span className='fw-semibold'>{result.semester}</span></p>
                                                 <p className='my-2'>Title: <span className='fw-semibold'>{result.responseTitle}</span></p>
                                                 <p className='my-2'>Marks: <span className='fw-semibold'>{result.totalMarks}</span></p>
                                                 <p className='my-2'>Difficulty: <span className='fw-semibold'>{result.difficulty}</span></p>
                                                 <p className='my-2'>Subject: <span className="fw-semibold">{result.responseSubject}</span></p>
                                                 <p className='my-2'>Marks Obtained: <span className="fw-semibold">{result.marksScored}</span></p>
                                                 <p className='my-2'>Percentage: <span className="fw-semibold">{`${result.percentage}%`}</span></p>
-                                                <button onClick={()=>{openResult(result);}}className='btn btn-success' style={viewButtonStyle}>View</button>
+                                                <button onClick={()=>{openResult(result);}} className='btn btn-success' style={viewButtonStyle}>View</button>
                                             </li>
                                         </div>
                                     ))}
                                 </ol>
                 )}
                 </div>
-                <Alert info={message.info} status={message.status} />
             </div>
+        <Alert info={message.info} status={message.status} />
     </Layout>
   )
 }

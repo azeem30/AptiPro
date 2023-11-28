@@ -1,4 +1,4 @@
-import {React, useState, useEffect, Fragment} from 'react'
+import React, {useState, useEffect, Fragment} from 'react'
 import Alert from './Alert';
 
 export default function Timer(props) {

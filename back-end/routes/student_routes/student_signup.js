@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const student = require('../models/students');
+const student = require('../../models/students');
 const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const passwordPattern = /^(?=.*[A-Z])(?=.*[\W_])(?=.*[0-9]).{8,}$/; 
 const bcrypt = require('bcryptjs');

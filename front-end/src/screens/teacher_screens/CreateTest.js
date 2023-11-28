@@ -1,8 +1,8 @@
-import {React, useState, useEffect} from 'react'
-import Layout from '../components/Layout'
-import Navbar from '../components/Navbar'
-import Alert from '../components/Alert'
-import ConfirmationModal from '../components/ConfirmationModal'
+import React, {useState, useEffect} from 'react'
+import Layout from '../../components/Layout'
+import Navbar from '../../components/Navbar'
+import Alert from '../../components/Alert'
+import ConfirmationModal from '../../components/ConfirmationModal'
 
 export default function CreateTest() {
     const [test, setTest] = useState({

@@ -4,20 +4,20 @@ import {
   Routes,
   Route
 } from 'react-router-dom'
-import UserSelect from './screens/UserSelect';
-import TeacherSignup from './screens/TeacherSignup';
-import TeacherLogin from './screens/TeacherLogin';
-import TeacherHome from './screens/TeacherHome';
-import StudentSignup from './screens/StudentSignup';
-import StudentLogin from './screens/StudentLogin';
-import StudentHome from './screens/StudentHome';
-import CreateTest from './screens/CreateTest';
-import ScheduledTests from './screens/ScheduledTests';
-import Quiz from './screens/Quiz';
-import StudentResults from './screens/StudentResults';
-import DetailedResult from './screens/DetailedResult';
-import TeacherResults from './screens/TeacherResults';
-import AddQuestions from './screens/AddQuestions';
+import UserSelect from './screens/common_screens/UserSelect';
+import TeacherSignup from './screens/teacher_screens/TeacherSignup';
+import TeacherLogin from './screens/teacher_screens/TeacherLogin';
+import TeacherHome from './screens/teacher_screens/TeacherHome';
+import StudentSignup from './screens/student_screens/StudentSignup';
+import StudentLogin from './screens/student_screens/StudentLogin';
+import StudentHome from './screens/student_screens/StudentHome';
+import CreateTest from './screens/teacher_screens/CreateTest';
+import ScheduledTests from './screens/student_screens/ScheduledTests';
+import Quiz from './screens/student_screens/Quiz';
+import StudentResults from './screens/student_screens/StudentResults';
+import DetailedResult from './screens/common_screens/DetailedResult';
+import TeacherResults from './screens/teacher_screens/TeacherResults';
+import AddQuestions from './screens/teacher_screens/AddQuestions';
 
 function App() {
   return (

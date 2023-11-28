@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const jwtSecret = "WelcomeToAptiproPlacementWebApplication";
-const subject = require('../models/subjects');
-const department = require('../models/departments');
+const subject = require('../../models/subjects');
+const department = require('../../models/departments');
 
 const decodeToken = (token, secret) => {
     const decodedToken = jwt.verify(token, secret);

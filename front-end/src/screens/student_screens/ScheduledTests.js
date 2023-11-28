@@ -1,8 +1,8 @@
-import {React, useState, useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 import { useNavigate } from 'react-router-dom'
-import Layout from '../components/Layout'
-import Navbar from '../components/Navbar'
-import Alert from '../components/Alert'
+import Layout from '../../components/Layout'
+import Navbar from '../../components/Navbar'
+import Alert from '../../components/Alert'
 
 export default function ScheduledTests() {
     useEffect(() => {getScheduledTests()}, []);

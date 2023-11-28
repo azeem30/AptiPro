@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const responseModel = require('../models/responses');
+const responseModel = require('../../models/responses');
 const jwt = require('jsonwebtoken');
 const jwtSecret = "WelcomeToAptiproPlacementWebApplication";
 

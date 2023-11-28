@@ -1,8 +1,8 @@
-import {React} from 'react'
+import React from 'react'
 import { useLocation} from 'react-router-dom'
-import Layout from '../components/Layout'
-import Navbar from '../components/Navbar'
-import QuizBox from '../components/QuizBox';
+import Layout from '../../components/Layout'
+import Navbar from '../../components/Navbar'
+import QuizBox from '../../components/QuizBox';
 
 export default function Quiz() {
     const location = useLocation();

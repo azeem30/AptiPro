@@ -1,8 +1,8 @@
 import React from 'react'
 import { useLocation } from 'react-router-dom'
-import Layout from '../components/Layout'
-import Navbar from '../components/Navbar'
-import ResultBox from '../components/ResultBox'
+import Layout from '../../components/Layout'
+import Navbar from '../../components/Navbar'
+import ResultBox from '../../components/ResultBox'
 
 export default function DetailedResult() {
     const location = useLocation();

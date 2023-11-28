@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Layout from "../components/Layout";
-import Navbar from "../components/Navbar";
+import Layout from "../../components/Layout";
+import Navbar from "../../components/Navbar";
 
 export default function UserSelect() {
   let linkStyle = {
