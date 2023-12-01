@@ -18,6 +18,7 @@ import StudentResults from './screens/student_screens/StudentResults';
 import DetailedResult from './screens/common_screens/DetailedResult';
 import TeacherResults from './screens/teacher_screens/TeacherResults';
 import AddQuestions from './screens/teacher_screens/AddQuestions';
+import ProfilePage from './screens/common_screens/ProfilePage';
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
         <Route exact path='/detailed_result' element={<DetailedResult />} />
         <Route exact path='/teacher_results' element={<TeacherResults />} />
         <Route exact path='/add_questions' element={<AddQuestions />} />
+        <Route exact path='/profile' element={<ProfilePage />} />
       </Routes> 
     </Router>
   );

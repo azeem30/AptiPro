@@ -8,8 +8,8 @@ export default function Navbar(props) {
         width: '30px',
         height: '30px'
     };
-    let logoutStyle = {
-        marginLeft: '1150px'
+    let profileStyle = {
+        marginLeft: '1110px'
     };
     let navStyle = {
         borderBottom: '0.5px solid black'
@@ -36,6 +36,9 @@ export default function Navbar(props) {
         navigate('/');
       }
     };
+    const openProfile = () => {
+      navigate(`/profile?side=${props.screenSide}`);
+    }
     return (
     <div>
       <nav className="navbar navbar-expand-lg bg-success opacity-75" style={navStyle}>
@@ -71,10 +74,19 @@ export default function Navbar(props) {
                   Pricing
                 </a>
               </li>
+              {
+                localStorage.getItem("authToken") ? (
+                  <li style={profileStyle} className="nav-item my-1">
+                    <button className="nav-link" onClick={openProfile}>
+                      <img className='rounded' style={imageStyle} src="https://png.pngtree.com/png-clipart/20200224/original/pngtree-avatar-icon-profile-icon-member-login-vector-isolated-png-image_5247852.jpg" alt="profile" />
+                    </button>
+                  </li>
+                ) : ''
+              }
               { 
                 localStorage.getItem("authToken") ? ( 
-                  <li style={logoutStyle} className="nav-item my-1">
-                    <button className="nav-link text-white" onClick={openConfirmationBox}>
+                  <li className="nav-item my-1">
+                    <button className="nav-link" onClick={openConfirmationBox}>
                       <img className='rounded' style={imageStyle} src="https://png.pngtree.com/png-vector/20190419/ourmid/pngtree-vector-logout-icon-png-image_956410.jpg" alt="logout" />
                     </button>
                   </li>

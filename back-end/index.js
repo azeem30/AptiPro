@@ -21,6 +21,7 @@ app.use('/api', require("./routes/student_routes/fetch_questions"));
 app.use('/api', require("./routes/student_routes/submit_test"));
 app.use('/api', require("./routes/common_routes/fetch_responses"));
 app.use('/api', require("./routes/teacher_routes/add_questions"));
+app.use('/api', require("./routes/common_routes/profile"));
 
 app.listen(port, ()=>{
     console.log(`Listening on port: ${port}`);
