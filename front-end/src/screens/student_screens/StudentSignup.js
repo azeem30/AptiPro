@@ -296,7 +296,7 @@ export default function StudentSignup() {
                 <td>
                   <input
                     className="form-control my-1 mx-1"
-                    type="text"
+                    type="number"
                     aria-label={`Semester ${result.semester} SGPI`}
                     placeholder="SGPI"
                     value={result.sgpi}
