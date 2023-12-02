@@ -26,8 +26,9 @@ export default function ScheduledTests() {
         marginBottom: '15px'
     };
     let startButtonStyle ={
-        width: '60px',  
-        height: '40px',
+        width: '60px',
+        fontSize: '12px',  
+        height: '30px',
     };
     const getScheduledTests = async () => {
         const response = await fetch("http://localhost:8000/api/scheduled_tests", {
@@ -64,28 +65,47 @@ export default function ScheduledTests() {
                         <h4 class="card-title">Pending Tests</h4>
                     </div>
                     <div className='bg-secondary' style={separator}></div>
-                    <div className='mb-3'>
-                    {scheduledTests.length === 0 ? (
-                                <p className='d-flex justify-content-center fw-normal'>No tests scheduled for you at the moment!</p>
-                            ) : (
-                                <ol className="list-group">
-                                    {scheduledTests.map((test, index) => (
-                                        <div className='d-flex justify-content-evenly' key={index}>
-                                            <li className='d-flex w-100 my-2 justify-content-between text-wrap rounded border border-success-subtle list-group-item'>
-                                                <p className='my-2'>Title: <span className='fw-semibold'>{test.testTitle}</span></p>
-                                                <p className='my-2'>Marks: <span className='fw-semibold'>{test.testMarks}</span></p>
-                                                <p className='my-2'>Duration: <span className='fw-semibold'>{`${test.testDuration} minutes`}</span></p>
-                                                <p className='my-2'>Difficulty: <span className='fw-semibold'>{test.testDifficulty}</span></p>
-                                                <p className='my-2'>Subject: <span className="fw-semibold">{test.testSubject}</span></p>
-                                                <p className='my-2'>Date: <span className="fw-semibold">{test.testDate}</span></p>
-                                                <p className='my-2'>Time: <span className="fw-semibold">{test.testTime}</span></p>
-                                                <button onClick={()=>beginTest(test)} disabled={!isTestReady(test.testDate, test.testTime)} className='btn btn-success' style={startButtonStyle}>Start</button>
-                                            </li>
-                                        </div>
-                                    ))}
-                                </ol>
+                    <div className='my-2'>
+                    {
+                        scheduledTests.length === 0 ? (
+                            <p className='d-flex mt-2 justify-content-center fw-normal'>No tests scheduled for you at the moment!</p>
+                        ) : (
+                            <table className='table'>
+                                <thead>
+                                    <tr>
+                                        <th className='col fw-semibold'>No.</th>
+                                        <th className='col fw-semibold'>Title</th>
+                                        <th className='col fw-semibold'>Marks</th>
+                                        <th className="col fw-semibold">Questions</th>
+                                        <th className='col fw-semibold'>Duration</th>
+                                        <th className='col fw-semibold'>Difficulty</th>
+                                        <th className='col fw-semibold'>Subject</th>
+                                        <th className='col fw-semibold'>Date</th>
+                                        <th className='col fw-semibold'>Time</th>
+                                        <th className='col fw-semibold'>Enter</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        scheduledTests.map((test, index) => (
+                                            <tr key={test.testTitle}>
+                                                <td className="col">{index + 1}</td>
+                                                <td className="col">{test.testTitle}</td>
+                                                <td className="col">{test.testMarks}</td>
+                                                <td className="col">{test.testQuestionCount}</td>
+                                                <td className="col">{`${test.testDuration} minutes`}</td>
+                                                <td className="col">{test.testDifficulty}</td>
+                                                <td className="col">{test.testSubject}</td>
+                                                <td className="col">{test.testDate}</td>
+                                                <td className="col">{test.testTime}</td>
+                                                <td className="col"><button onClick={()=>beginTest(test)} disabled={!isTestReady(test.testDate, test.testTime)} className='btn btn-success' style={startButtonStyle}>Start</button></td>
+                                            </tr>
+                                        ))
+                                    }
+                                </tbody>
+                            </table>
                     )}
-                    </div>
+                </div>
                 </div>
                 <Alert info={message.info} status={message.status} />
             </div>

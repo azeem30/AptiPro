@@ -38,8 +38,9 @@ export default function TeacherResults() {
         left: '-50px'
     };
     let viewButtonStyle = {
-        width: '60px',  
-        height: '40px'
+        width: '60px', 
+        fontSize: '12px', 
+        height: '30px'
     };
     const getTeacherSubjects = async () => {
         const response = await fetch("http://localhost:8000/api/subjects", {
@@ -127,29 +128,48 @@ export default function TeacherResults() {
                         </div>
                 </div>
                 <div className="bg-secondary" style={separator}></div>
-                <div className="list-group">
-                {filteredResponses.length === 0 ? (
-                                <p className='d-flex mt-2 justify-content-center fw-normal'>You have not received any responses!</p>
-                            ) : (
-                                <ol className="list-group">
-                                    {filteredResponses.map((result, index) => (
-                                        <div className='d-flex justify-content-evenly' key={index}>
-                                            <li className='d-flex w-100 my-2 justify-content-between text-wrap rounded border border-success-subtle list-group-item'>
-                                                <p className='my-2'>Roll: <span className='fw-semibold'>{result.name}</span></p>
-                                                <p className='my-2'>Name: <span className='fw-semibold'>{result.rollNo}</span></p>
-                                                <p className='my-2'>Semester: <span className='fw-semibold'>{result.semester}</span></p>
-                                                <p className='my-2'>Title: <span className='fw-semibold'>{result.responseTitle}</span></p>
-                                                <p className='my-2'>Marks: <span className='fw-semibold'>{result.totalMarks}</span></p>
-                                                <p className='my-2'>Difficulty: <span className='fw-semibold'>{result.difficulty}</span></p>
-                                                <p className='my-2'>Subject: <span className="fw-semibold">{result.responseSubject}</span></p>
-                                                <p className='my-2'>Marks Obtained: <span className="fw-semibold">{result.marksScored}</span></p>
-                                                <p className='my-2'>Percentage: <span className="fw-semibold">{`${result.percentage}%`}</span></p>
-                                                <button onClick={()=>{openResult(result);}}className='btn btn-success' style={viewButtonStyle}>View</button>
-                                            </li>
-                                        </div>
-                                    ))}
-                                </ol>
-                )}
+                <div className='my-2'>
+                    {
+                        filteredResponses.length === 0 ? (
+                            <p className='d-flex mt-2 justify-content-center fw-normal'>You have not submitted any responses!</p>
+                        ) : (
+                            <table className='table'>
+                                <thead>
+                                    <tr>
+                                        <th className='col fw-semibold'>No.</th>
+                                        <th className='col fw-semibold'>Roll Nox</th>
+                                        <th className='col fw-semibold'>Name</th>
+                                        <th className='col fw-semibold'>Semester</th>
+                                        <th className='col fw-semibold'>Title</th>
+                                        <th className='col fw-semibold'>Marks Obtained</th>
+                                        <th className='col fw-semibold'>Marks</th>
+                                        <th className='col fw-semibold'>Percentage</th>
+                                        <th className='col fw-semibold'>Difficulty</th>
+                                        <th className='col fw-semibold'>Subject</th>
+                                        <th className='col fw-semibold'>Details</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        filteredResponses.map((result, index) => (
+                                            <tr key={result.responseId}>
+                                                <td className="col">{index + 1}</td>
+                                                <td className="col">{result.rollNo}</td>
+                                                <td className="col">{result.name}</td>
+                                                <td className="col">{result.semester}</td>
+                                                <td className="col">{result.responseTitle}</td>
+                                                <td className="col">{result.marksScored}</td>
+                                                <td className="col">{result.totalMarks}</td>
+                                                <td className="col">{`${result.percentage}%`}</td>
+                                                <td className="col">{result.difficulty}</td>
+                                                <td className="col">{result.responseSubject}</td>
+                                                <td className="col"><button onClick={()=>{openResult(result);}} className='btn btn-success' style={viewButtonStyle}>View</button></td>
+                                            </tr>
+                                        ))
+                                    }
+                                </tbody>
+                            </table>
+                    )}
                 </div>
                 <Alert info={message.info} status={message.status} />
             </div>
