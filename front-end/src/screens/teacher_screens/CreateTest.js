@@ -185,7 +185,7 @@ export default function CreateTest() {
                     </div>
                     <div style={difficultyStyle}>
                     <ul className="list-group list-group-horizontal">
-                        <button onClick={()=>{setTest({...test, testDifficulty: 'Easy'});}} className={`list-group-item border border-dark ${test.testDifficulty === 'Easy' ? 'bg-white text-success fw-semibold' : 'bg-success text-white'}`} id="d_simple">Simple</button>
+                        <button onClick={()=>{setTest({...test, testDifficulty: 'Easy'});}} className={`list-group-item border border-dark ${test.testDifficulty === 'Easy' ? 'bg-white text-success fw-semibold' : 'bg-success text-white'}`} id="d_simple">Easy   </button>
                         <button  onClick={()=>{setTest({...test, testDifficulty: 'Medium'});}} className={`list-group-item border border-dark ${test.testDifficulty === 'Medium' ? 'bg-white text-dark fw-semibold' : 'bg-warning text-dark'}`} id="d_medium">Medium</button>
                         <button onClick={()=>{setTest({...test, testDifficulty: 'Hard'});}} className={`list-group-item border border-dark ${test.testDifficulty === 'Hard' ? 'bg-white text-danger fw-semibold' : 'bg-danger text-white'}`} id="d_hard">Hard</button>
                         <button  onClick={()=>{setTest({...test, testDifficulty: 'Combined'});}} className={`list-group-item border border-dark ${test.testDifficulty === 'Combined' ? 'bg-white text-dark fw-semibold' : 'bg-dark text-white'}`} id="d_combined">Combined</button>

@@ -9,7 +9,7 @@ export default function Navbar(props) {
         height: '30px'
     };
     let profileStyle = {
-        marginLeft: '1110px'
+        marginLeft: '1260px'
     };
     let navStyle = {
         borderBottom: '0.5px solid black'
@@ -63,16 +63,6 @@ export default function Navbar(props) {
                 <button onClick={handleHome} className="nav-link active text-white" aria-current="page">
                   Home
                 </button>
-              </li>
-              <li className="nav-item mx-2 my-2">
-                <a className="nav-link text-white" href="#">
-                  About
-                </a>
-              </li>
-              <li className="nav-item mx-1 my-2">
-                <a className="nav-link text-white" href="#">
-                  Pricing
-                </a>
               </li>
               {
                 localStorage.getItem("authToken") ? (

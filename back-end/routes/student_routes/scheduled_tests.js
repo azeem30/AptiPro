@@ -18,7 +18,7 @@ async (req, res) => {
         originalToken = decodeToken(authToken, jwtSecret);
         const departmentId = originalToken.userData.departmentId;
         const studentId = originalToken.userData.studentId;
-        const allSubjects =  await subject.find({departmentId});
+        const allSubjects =  await subject.find({$or: [{departmentId}, {departmentId: 0}]});
         const subjectNames = allSubjects.map((sub) => sub.subjectName);
         let scheduledTests = await test.find({ testSubject: { $in: subjectNames } });
         const allResponses = await response.find({studentId});

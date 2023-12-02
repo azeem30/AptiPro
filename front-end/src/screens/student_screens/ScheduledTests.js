@@ -70,7 +70,7 @@ export default function ScheduledTests() {
                         scheduledTests.length === 0 ? (
                             <p className='d-flex mt-2 justify-content-center fw-normal'>No tests scheduled for you at the moment!</p>
                         ) : (
-                            <table className='table'>
+                            <table className='table table-info'>
                                 <thead>
                                     <tr>
                                         <th className='col fw-semibold'>No.</th>
@@ -85,7 +85,7 @@ export default function ScheduledTests() {
                                         <th className='col fw-semibold'>Enter</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody className='table-success'>
                                     {
                                         scheduledTests.map((test, index) => (
                                             <tr key={test.testTitle}>
