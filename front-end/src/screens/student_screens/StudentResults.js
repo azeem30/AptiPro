@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import Layout from '../../components/Layout'
 import Navbar from '../../components/Navbar'
 import Alert from '../../components/Alert'
+import '../../styles/student_results.css'
 
 export default function StudentResults() {
     useEffect(()=> { 
@@ -20,28 +21,6 @@ export default function StudentResults() {
     });
     const filteredResponses = filter ? responses.filter((result) => result.responseSubject === filter) : responses;
     var signedToken = localStorage.getItem('authToken');
-    let containerStyle = {
-        position: 'relative',
-        top: '3%',
-        width:'80%'
-    };
-    let separator = {
-        height: '0.5px',
-        marginTop: '3px'
-    };
-    let buttonStyle = {
-        height:'40px'
-    };
-    let headerStyle = {
-        position: 'relative',
-        top: '17px',
-        left: '-50px'
-    };
-    let viewButtonStyle = {
-        width: '60px', 
-        fontSize: '12px', 
-        height: '30px'
-    };
     const getStudentSubjects = async () => {
         const response = await fetch("http://localhost:8000/api/subjects", {
             method: 'POST',
@@ -92,81 +71,99 @@ export default function StudentResults() {
     };
   return (
     <Layout>
-        <Navbar screenSide='student' />
-            <div style={containerStyle} className="container rounded bg-white">
-                <div className="d-flex justify-content-around">
-                    <h4 style={headerStyle} className="card-title">Submitted Tests</h4>
-                        <div className="btn-group my-2" style={buttonStyle}>
-                            <button type="button" id='subject_display' className="btn mt-1 fw-semibold btn-white text-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                Filter
-                            </button>
-                            <ul className="dropdown-menu">
-                                    {
-                                        subjects.map((subject, index)=>(
-                                            <li 
-                                                className='dropdown-item'
-                                                key={subject.subjectId}
-                                                onClick={()=>{
-                                                    const subjectDisplay = document.getElementById('subject_display');
-                                                    subjectDisplay.textContent = subject.subjectName;
-                                                    handleFilter(subject.subjectName);
-                                                }}>
-                                                {subject.subjectName}
-                                            </li>
-                                        ))
-                                    }
-                            </ul>
-                        </div>
-                        <div className="btn-group my-2" style={buttonStyle}>
-                            <button type="button" className="btn mt-1 fw-semibold btn-white text-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                Sort by
-                            </button>
-                            <ul className="dropdown-menu">
-                                <li><a onClick={()=>{handleSort('desc');}} className="dropdown-item" href="#">Marks: High to Low</a></li>
-                                <li><a onClick={()=>{handleSort('asc');}} className="dropdown-item" href="#">Marks: Low to High</a></li>
-                            </ul>
-                        </div>
+            <Navbar screenSide='student' />
+            <div className="container rounded bg-white mt-4">
+                <div className="d-flex justify-content-between align-items-center my-3">
+                    <h4 className="card-title mt-2 mx-3">Submitted Tests</h4>
+                    <div className="btn-group button">
+                        <button
+                            type="button"
+                            className="btn btn-white dropdown-toggle"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                        >
+                            Filter
+                        </button>
+                        <ul className="dropdown-menu">
+                            {subjects.map((subject, index) => (
+                                <li
+                                    className='dropdown-item'
+                                    key={subject.subjectId}
+                                    onClick={() => {
+                                        const subjectDisplay = document.getElementById('subject_display');
+                                        subjectDisplay.textContent = subject.subjectName;
+                                        handleFilter(subject.subjectName);
+                                    }}
+                                >
+                                    {subject.subjectName}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                    <div className="btn-group button">
+                        <button
+                            type="button"
+                            className="btn btn-white dropdown-toggle"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                        >
+                            Sort by
+                        </button>
+                        <ul className="dropdown-menu">
+                            <li>
+                                <a onClick={() => { handleSort('desc'); }} className="dropdown-item" href="#">
+                                    Marks: High to Low
+                                </a>
+                            </li>
+                            <li>
+                                <a onClick={() => { handleSort('asc'); }} className="dropdown-item" href="#">
+                                    Marks: Low to High
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-                <div className="bg-secondary" style={separator}></div>
+                <div className="bg-secondary" style={{ height: '1px' }}></div>
                 <div className='my-2'>
-                    {
-                        filteredResponses.length === 0 ? (
-                            <p className='d-flex mt-2 justify-content-center fw-normal'>You have not submitted any responses!</p>
-                        ) : (
-                            <table className='table'>
-                                <thead>
-                                    <tr>
-                                        <th className='col fw-semibold'>No.</th>
-                                        <th className='col fw-semibold'>Title</th>
-                                        <th className='col fw-semibold'>Marks Obtained</th>
-                                        <th className='col fw-semibold'>Marks</th>
-                                        <th className='col fw-semibold'>Percentage</th>
-                                        <th className='col fw-semibold'>Difficulty</th>
-                                        <th className='col fw-semibold'>Subject</th>
-                                        <th className='col fw-semibold'>Details</th>
+                    {filteredResponses.length === 0 ? (
+                        <p className='mt-2 text-center fw-normal'>You have not submitted any responses!</p>
+                    ) : (
+                        <table className='table'>
+                            <thead>
+                                <tr>
+                                    <th className='table-cell fw-semibold'>No.</th>
+                                    <th className='table-cell fw-semibold'>Title</th>
+                                    <th className='table-cell fw-semibold'>Marks Obtained</th>
+                                    <th className='table-cell fw-semibold'>Marks</th>
+                                    <th className='table-cell fw-semibold'>Percentage</th>
+                                    <th className='table-cell fw-semibold'>Difficulty</th>
+                                    <th className='table-cell fw-semibold'>Subject</th>
+                                    <th className='table-cell fw-semibold'>Details</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {filteredResponses.map((result, index) => (
+                                    <tr key={result.responseId}>
+                                        <td className='table-cell'>{index + 1}</td>
+                                        <td className='table-cell'>{result.responseTitle}</td>
+                                        <td className='table-cell'>{result.marksScored}</td>
+                                        <td className='table-cell'>{result.totalMarks}</td>
+                                        <td className='table-cell'>{`${result.percentage}%`}</td>
+                                        <td className='table-cell'>{result.difficulty}</td>
+                                        <td className='table-cell'>{result.responseSubject}</td>
+                                        <td className='table-cell'>
+                                            <button onClick={() => { openResult(result); }} className='btn btn-success view-button'>
+                                                View
+                                            </button>
+                                        </td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    {
-                                        filteredResponses.map((result, index) => (
-                                            <tr key={result.responseId}>
-                                                <td className="col">{index + 1}</td>
-                                                <td className="col">{result.responseTitle}</td>
-                                                <td className="col">{result.marksScored}</td>
-                                                <td className="col">{result.totalMarks}</td>
-                                                <td className="col">{`${result.percentage}%`}</td>
-                                                <td className="col">{result.difficulty}</td>
-                                                <td className="col">{result.responseSubject}</td>
-                                                <td className="col"><button onClick={()=>{openResult(result);}} className='btn btn-success' style={viewButtonStyle}>View</button></td>
-                                            </tr>
-                                        ))
-                                    }
-                                </tbody>
-                            </table>
+                                ))}
+                            </tbody>
+                        </table>
                     )}
                 </div>
             </div>
-        <Alert info={message.info} status={message.status} />
-    </Layout>
+            <Alert info={message.info} status={message.status} />
+        </Layout>
   )
 }

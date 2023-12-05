@@ -3,6 +3,7 @@ import Navbar from '../../components/Navbar'
 import Layout from '../../components/Layout'
 import Alert from '../../components/Alert';
 import { useNavigate } from 'react-router-dom';
+import '../../styles/teacher_results.css'
 
 export default function TeacherResults() {
     useEffect(()=> { 
@@ -20,28 +21,6 @@ export default function TeacherResults() {
         status: null
     });
     const filteredResponses = filter ? responses.filter((result) => result.responseSubject === filter) : responses;
-    let containerStyle = {
-        position: 'relative',
-        top: '3%',
-        width:'80%'
-    };
-    let separator = {
-        height: '0.5px',
-        marginTop: '3px'
-    };
-    let buttonStyle = {
-        height:'40px'
-    };
-    let headerStyle = {
-        position: 'relative',
-        top: '17px',
-        left: '-50px'
-    };
-    let viewButtonStyle = {
-        width: '60px', 
-        fontSize: '12px', 
-        height: '30px'
-    };
     const getTeacherSubjects = async () => {
         const response = await fetch("http://localhost:8000/api/subjects", {
             method: 'POST',
@@ -93,10 +72,10 @@ export default function TeacherResults() {
   return (
     <Layout>
         <Navbar screenSide='teacher' />
-        <div style={containerStyle} className="container rounded bg-white">
+        <div  className="container rounded bg-white container-style">
                 <div className="d-flex justify-content-around">
-                    <h4 style={headerStyle} className="card-title">Submitted Tests</h4>
-                        <div className="btn-group my-2" style={buttonStyle}>
+                    <h4 className="card-title header">Submitted Tests</h4>
+                        <div className="btn-group my-2 button">
                             <button type="button" id='subject_display' className="btn mt-1 fw-semibold btn-white text-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                 Filter
                             </button>
@@ -117,7 +96,7 @@ export default function TeacherResults() {
                                     }
                             </ul>
                         </div>
-                        <div className="btn-group my-2" style={buttonStyle}>
+                        <div className="btn-group my-2 button">
                             <button type="button" className="btn mt-1 fw-semibold btn-white text-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                 Sort by
                             </button>
@@ -127,32 +106,32 @@ export default function TeacherResults() {
                             </ul>
                         </div>
                 </div>
-                <div className="bg-secondary" style={separator}></div>
+                <div className="bg-secondary separator"></div>
                 <div className='my-2'>
                     {
                         filteredResponses.length === 0 ? (
                             <p className='d-flex mt-2 justify-content-center fw-normal'>You have not submitted any responses!</p>
                         ) : (
-                            <table className='table'>
+                            <table className='table table-style'>
                                 <thead>
                                     <tr>
-                                        <th className='col fw-semibold'>No.</th>
-                                        <th className='col fw-semibold'>Roll Nox</th>
-                                        <th className='col fw-semibold'>Name</th>
-                                        <th className='col fw-semibold'>Semester</th>
-                                        <th className='col fw-semibold'>Title</th>
-                                        <th className='col fw-semibold'>Marks Obtained</th>
-                                        <th className='col fw-semibold'>Marks</th>
-                                        <th className='col fw-semibold'>Percentage</th>
-                                        <th className='col fw-semibold'>Difficulty</th>
-                                        <th className='col fw-semibold'>Subject</th>
-                                        <th className='col fw-semibold'>Details</th>
+                                        <th  className='col fw-semibold table-header'>No.</th>
+                                        <th  className='col fw-semibold table-header'>Roll No</th>
+                                        <th  className='col fw-semibold table-header'>Name</th>
+                                        <th  className='col fw-semibold table-header'>Semester</th>
+                                        <th  className='col fw-semibold table-header'>Title</th>
+                                        <th  className='col fw-semibold table-header'>Marks Obtained</th>
+                                        <th  className='col fw-semibold table-header'>Marks</th>
+                                        <th  className='col fw-semibold table-header'>Percentage</th>
+                                        <th  className='col fw-semibold table-header'>Difficulty</th>
+                                        <th  className='col fw-semibold table-header'>Subject</th>
+                                        <th  className='col fw-semibold table-header'>Details</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {
                                         filteredResponses.map((result, index) => (
-                                            <tr key={result.responseId}>
+                                            <tr key={result.responseId} className='table-row'>
                                                 <td className="col">{index + 1}</td>
                                                 <td className="col">{result.rollNo}</td>
                                                 <td className="col">{result.name}</td>
@@ -163,7 +142,7 @@ export default function TeacherResults() {
                                                 <td className="col">{`${result.percentage}%`}</td>
                                                 <td className="col">{result.difficulty}</td>
                                                 <td className="col">{result.responseSubject}</td>
-                                                <td className="col"><button onClick={()=>{openResult(result);}} className='btn btn-success' style={viewButtonStyle}>View</button></td>
+                                                <td className="col"><button onClick={()=>{openResult(result);}} className='btn btn-success view-button'>View</button></td>
                                             </tr>
                                         ))
                                     }

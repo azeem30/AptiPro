@@ -1,0 +1,23 @@
+.test-card-style {
+    width: 95%;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    margin: auto;
+}
+
+.container-style {
+    position: relative;
+    top: 4%;
+}
+
+.separator {
+    height: 0.5px;
+    margin-top: 2px;
+    margin-bottom: 15px;
+}
+
+.start-button {
+    width: 80px;
+    font-size: 14px;
+    height: 36px;
+}

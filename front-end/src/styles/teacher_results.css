@@ -1,0 +1,57 @@
+.container-style {
+    position: relative;
+    top: 3%;
+    width: 80%;
+}
+
+/* Separator Style */
+.separator {
+    height: 0.5px;
+    margin-top: 3px;
+}
+
+/* Button Style */
+.button {
+    height: 40px;
+}
+
+/* Header Style */
+.header {
+    position: relative;
+    top: 17px;
+    left: -50px;
+}
+
+/* Table Style */
+.table-style {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+/* Table Header Style */
+.table-header {
+    background-color: #f2f2f2;
+    border-bottom: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+/* Table Row Style */
+.table-row {
+    border-bottom: 1px solid #ddd;
+    background-color: #fff;
+}
+
+/* View Button Style */
+.view-button {
+    width: 60px;
+    font-size: 12px;
+    height: 30px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}

@@ -2,69 +2,38 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Layout from "../../components/Layout";
 import Navbar from "../../components/Navbar";
+import "../../styles/user_select.css"; // Import a CSS file for additional styling
 
 export default function UserSelect() {
-  let linkStyle = {
-    textDecoration: "none",
-  };
-  let imageLeftStyle = {
-    borderBottom: "1px solid black",
-  };
-  let imageRightStyle = {
-    borderBottom: "1px solid black",
-    position: "relative",
-    top: "48px",
-  };
-  let cardStyle = {
-    width: "18rem",
-    marginTop: "6%",
-  };
-  let buttonStyle = {
-    marginTop: "45px",
-  };
   return (
     <Layout>
       <Navbar />
-        <div className="d-flex justify-content-center">
-          <div class="card border border-dark-subtle mx-3" style={cardStyle}>
-            <img
-              style={imageLeftStyle}
-              src="https://img.freepik.com/free-vector/college-university-students-group-young-happy-people-standing-isolated-white-background_575670-66.jpg?w=2000"
-              class="card-img-top"
-              alt="..."
-            />
-            <div class="d-flex justify-content-center card-body">
-              <button class="btn btn-success">
-                <Link
-                  to="/student_login"
-                  className="text-white"
-                  style={linkStyle}
-                >
-                  I am a Student
-                </Link>
-              </button>
-            </div>
-          </div>
-          <div class="card border border-dark-subtle" style={cardStyle}>
-            <img
-              src="https://img.freepik.com/free-vector/teacher-standing-near-blackboard-holding-stick-isolated-flat-vector-illustration-cartoon-woman-character-near-chalkboard-pointing-alphabet_74855-8600.jpg"
-              class="card-img-top"
-              alt="..."
-            />
-            <div style={imageRightStyle}></div>
-            <div class="d-flex justify-content-center card-body">
-              <button style={buttonStyle} class="btn btn-success">
-                <Link
-                  to="/teacher_login"
-                  className="text-white"
-                  style={linkStyle}
-                >
-                  I am a Teacher
-                </Link>
-              </button>
-            </div>
+      <div className="user-select-container">
+        <div className="user-card">
+          <img
+            src="https://img.freepik.com/free-vector/college-university-students-group-young-happy-people-standing-isolated-white-background_575670-66.jpg?w=2000"
+            className="card-img-top"
+            alt="Student"
+          />
+          <div className="card-body">
+            <Link to="/student_login" className="btn btn-success button btn-block">
+              I am a Student
+            </Link>
           </div>
         </div>
+        <div className="user-card">
+          <img
+            src="https://img.freepik.com/free-vector/teacher-standing-near-blackboard-holding-stick-isolated-flat-vector-illustration-cartoon-woman-character-near-chalkboard-pointing-alphabet_74855-8600.jpg"
+            className="card-img-top"
+            alt="Teacher"
+          />
+          <div className="card-body">
+            <Link to="/teacher_login" className="btn btn-success button btn-block">
+              I am a Teacher
+            </Link>
+          </div>
+        </div>
+      </div>
     </Layout>
   );
 }

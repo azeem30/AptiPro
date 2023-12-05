@@ -1,0 +1,39 @@
+/* TeacherLogin.css */
+
+.login-form {
+    width: 50%;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+  }
+  
+  .form-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .separator {
+    border: 0.5px solid #ccc;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .btn-login {
+    width: 100%;
+  }
+  
+  .form-footer {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .new-teacher-text {
+    font-weight: bold;
+  }
+  
+  /* Add any additional styling based on your design preferences */
+  

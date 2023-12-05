@@ -1,7 +1,8 @@
-import React, {useState} from 'react'
-import { useNavigate, Link} from 'react-router-dom'
-import Layout from '../../components/Layout'
+import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import Layout from '../../components/Layout';
 import Alert from '../../components/Alert';
+import '../../styles/teacher_login.css'; 
 
 export default function TeacherLogin() {
     const navigate = useNavigate();
@@ -13,25 +14,7 @@ export default function TeacherLogin() {
         info: null,
         status: null
     });
-    let logCardStyle = {
-        position: 'relative',
-        top: '6%'
-    };
-    let logButtonStyle ={
-        marginTop: '30px',
-    };
-    let extraTextStyle = {
-        marginBottom: '0px',
-        marginTop: '10px'
-    };
-    let belowSeparator={
-        height:'0.5px',
-        marginTop: '20px'
-    };
-    let aboveSeparator={
-        height:'0.5px',
-        marginTop: '5px'
-    };
+
     const loginTeacher = async (event) => {
         event.preventDefault();
         const response = await fetch("http://localhost:8000/api/teacher_login", {
@@ -53,35 +36,36 @@ export default function TeacherLogin() {
             navigate('/teacher_login');
         }
     }
-  return (
-    <Layout>
-        <form onSubmit={loginTeacher} className="container w-25 card border border-dark-subtle" style={logCardStyle}>
-        <div className="card-body">
-            <div className='d-flex justify-content-center'>
-                <h4>Teacher Login</h4>
-            </div>
-            <div className='border border-secondary' style={aboveSeparator}></div>
-            <div className="mt-3 mb-3">
-                <label for="exampleFormControlInputTc" className="form-label">Email</label>
-                <input type="email" onChange={(event)=>{setTeacherCred({...teacherCred, email: event.target.value})}} className="form-control" id="exampleFormControlInputSt" placeholder="name@example.com"/>
-                <p class='text-danger' id='email-validation'></p>
-            </div>
-            <div className="mb-3">
-                <label for="inputPasswordTc" className="form-label">Password</label>
-                <input type="password" onChange={(event)=>{setTeacherCred({...teacherCred, password: event.target.value})}} id="inputPasswordSt" className="form-control" aria-describedby="passwordHelpBlock"/>
-                <p class='text-danger' id='password-validation'></p>           
-            </div>
-            <div className="d-flex justify-content-center" style={logButtonStyle}>
-                <button type="submit" class="btn btn-info  border border-primary">Login</button>
-            </div>
-            <p class={'d-flex justify-content-center mt-2'} id='login-message'></p>
-            <div className='border border-secondary' style={belowSeparator}></div>
-            <div className='d-flex justify-content-center'>
-                <p className='fw-semibold' style={extraTextStyle}>New Teacher? <Link className='nav-item' to='/teacher_signup'>Signup</Link></p>
-            </div>
-            <Alert info={message.info} status={message.status} />
-        </div>
-    </form>
-    </Layout>
-  )
+
+    return (
+        <Layout>
+            <form onSubmit={loginTeacher} className="login-form">
+                <div className="card-body">
+                    <div className='form-header'>
+                        <h4>Teacher Login</h4>
+                    </div>
+                    <hr className='separator'/>
+                    <div className="form-group">
+                        <label htmlFor="exampleFormControlInputTc" className="form-label">Email</label>
+                        <input type="email" onChange={(event) => setTeacherCred({...teacherCred, email: event.target.value})} className="form-control" id="exampleFormControlInputSt" placeholder="name@example.com" />
+                        {/* Add any email validation message */}
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="inputPasswordTc" className="form-label">Password</label>
+                        <input type="password" onChange={(event) => setTeacherCred({...teacherCred, password: event.target.value})} id="inputPasswordSt" className="form-control" aria-describedby="passwordHelpBlock" />
+                        {/* Add any password validation message */}
+                    </div>
+                    <div className="form-group d-flex justify-content-center">
+                        <button type="submit" className="btn btn-info">Login</button>
+                    </div>
+                    <p className='login-message'></p>
+                    <hr className='separator'/>
+                    <div className='form-footer'>
+                        <p className='extra-text'>New Teacher? <Link className='nav-item' to='/teacher_signup'>Signup</Link></p>
+                    </div>
+                    <Alert info={message.info} status={message.status} />
+                </div>
+            </form>
+        </Layout>
+    )
 }

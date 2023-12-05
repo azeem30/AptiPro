@@ -1,0 +1,17 @@
+.nav-style {
+    border-bottom: 1px solid #ccc;
+    background-color: #f8f9fa;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px 20px;
+};
+
+.profile-style {
+    margin-left: auto;
+};
+
+.icon-style {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+};

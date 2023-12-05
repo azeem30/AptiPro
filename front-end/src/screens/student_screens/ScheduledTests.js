@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import Layout from '../../components/Layout'
 import Navbar from '../../components/Navbar'
 import Alert from '../../components/Alert'
+import '../../styles/scheduled_tests.css'
 
 export default function ScheduledTests() {
     useEffect(() => {getScheduledTests()}, []);
@@ -13,23 +14,6 @@ export default function ScheduledTests() {
         status: null
     });
     var signedToken = localStorage.getItem('authToken');
-    let testListCardStyle = {
-        width: '90%'
-    };
-    let containerStyle = {
-        position:'relative',
-        top: '4%',
-    };
-    let separator = {
-        height: '0.5px',
-        marginTop: '2px',
-        marginBottom: '15px'
-    };
-    let startButtonStyle ={
-        width: '60px',
-        fontSize: '12px',  
-        height: '30px',
-    };
     const getScheduledTests = async () => {
         const response = await fetch("http://localhost:8000/api/scheduled_tests", {
             method: 'POST',
@@ -58,19 +42,19 @@ export default function ScheduledTests() {
   return (
     <Layout>
         <Navbar screenSide='student' />
-        <div className="container d-flex justify-content-center" style={containerStyle}>
-            <div class="card" style={testListCardStyle}>
+        <div className="container d-flex justify-content-center container-style">
+            <div class="card test-card-style">
                 <div class="card-body">
                     <div className='d-flex justify-content-center'>
                         <h4 class="card-title">Pending Tests</h4>
                     </div>
-                    <div className='bg-secondary' style={separator}></div>
+                    <div className='bg-secondary separator'></div>
                     <div className='my-2'>
                     {
                         scheduledTests.length === 0 ? (
                             <p className='d-flex mt-2 justify-content-center fw-normal'>No tests scheduled for you at the moment!</p>
                         ) : (
-                            <table className='table table-info'>
+                            <table className='table table-striped table-bordered table-hover'>
                                 <thead>
                                     <tr>
                                         <th className='col fw-semibold'>No.</th>
@@ -98,7 +82,7 @@ export default function ScheduledTests() {
                                                 <td className="col">{test.testSubject}</td>
                                                 <td className="col">{test.testDate}</td>
                                                 <td className="col">{test.testTime}</td>
-                                                <td className="col"><button onClick={()=>beginTest(test)} disabled={!isTestReady(test.testDate, test.testTime)} className='btn btn-success' style={startButtonStyle}>Start</button></td>
+                                                <td className="col"><button onClick={()=>beginTest(test)} disabled={!isTestReady(test.testDate, test.testTime)} className='btn btn-success start-button'>Start</button></td>
                                             </tr>
                                         ))
                                     }
