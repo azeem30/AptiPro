@@ -1,0 +1,26 @@
+.profile-box {
+    margin-top: 40px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+};
+
+.label {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 5px;
+};
+
+.separator {
+    height: 1px;
+    background-color: #ccc;
+    margin: 20px 0;
+};
+
+.table-style {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
