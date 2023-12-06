@@ -81,6 +81,7 @@ export default function StudentResults() {
                             className="btn btn-white dropdown-toggle"
                             data-bs-toggle="dropdown"
                             aria-expanded="false"
+                            id='subject_display'
                         >
                             Filter
                         </button>
