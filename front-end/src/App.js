@@ -32,12 +32,12 @@ function App() {
         <Route exact path='/student_login' element={<StudentLogin />} />
         <Route exact path='/student_home' element={<StudentHome />} />
         <Route exact path='/create_test' element={<CreateTest />} />
+        <Route exact path='/add_questions' element={<AddQuestions />} />
         <Route exact path='/scheduled_tests' element={<ScheduledTests />} />
         <Route exact path='/quiz' element={<Quiz />} />
         <Route exact path='/student_results' element={<StudentResults />} />
-        <Route exact path='/detailed_result' element={<DetailedResult />} />
         <Route exact path='/teacher_results' element={<TeacherResults />} />
-        <Route exact path='/add_questions' element={<AddQuestions />} />
+        <Route exact path='/detailed_result' element={<DetailedResult />} />
         <Route exact path='/profile' element={<ProfilePage />} />
       </Routes> 
     </Router>
