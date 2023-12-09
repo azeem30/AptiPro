@@ -1,4 +1,6 @@
 import React, {useState, useEffect, Fragment} from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faClock } from '@fortawesome/free-solid-svg-icons';
 import Alert from './Alert';
 
 export default function Timer(props) {
@@ -9,10 +11,13 @@ export default function Timer(props) {
     status: null
   });
   let timerStyle = {
-    width: '70px',
+    width: '84px',
     height:'30px',
     fontSize: '16px',
     marginTop: '10px'
+  };
+  let iconStyle ={
+    marginRight: '5px'
   };
   useEffect(()=>{
     const timerInterval = setInterval(()=>{
@@ -33,15 +38,16 @@ export default function Timer(props) {
       }
     }, 1000);
     return () => clearInterval(timerInterval);
-  }, [timeInSeconds]);
+  }, [timeInSeconds]);  
   const minutes = Math.floor(timeInSeconds / 60);
   const seconds = timeInSeconds % 60;
   const formattedTime = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
   return (
     <Fragment>
-      <div style={timerStyle} className='badge text-bg-danger fw-normal text-wrap display-6 border border-dark'>
-        {formattedTime}
-      </div>
+        <div style={timerStyle} className='badge d-flex text-bg-danger fw-normal text-wrap display-6 border border-dark'>
+          <FontAwesomeIcon icon={faClock} style={iconStyle} />
+          {formattedTime}
+        </div>
       <Alert info={message.info} status={message.status}/>
     </Fragment>
   )
