@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Layout from '../../components/Layout';
 import Navbar from '../../components/Navbar';
-import '../../styles/student_home.css';
+import '../../styles/student_styles/student_home.css';
 
 export default function StudentHome() {
   return (

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import ConfirmationModal from './ConfirmationModal';
-import  '../styles/navbar.css'
+import  '../styles/common_styles/navbar.css'
 
 export default function Navbar(props) {
   const [isConfirmationBoxVisible, setConfirmationBoxVisible] = useState(false);

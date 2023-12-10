@@ -1,5 +1,5 @@
 import React from 'react'
-import '../styles/background.css'
+import '../styles/common_styles/background.css'
 
 export default function Layout({children}) {
   return (

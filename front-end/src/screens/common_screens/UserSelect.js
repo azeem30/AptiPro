@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Layout from "../../components/Layout";
 import Navbar from "../../components/Navbar";
-import "../../styles/user_select.css"; // Import a CSS file for additional styling
+import "../../styles/common_styles/user_select.css"; // Import a CSS file for additional styling
 
 export default function UserSelect() {
   return (

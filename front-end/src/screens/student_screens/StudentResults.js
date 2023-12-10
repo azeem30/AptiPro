@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import Layout from '../../components/Layout'
 import Navbar from '../../components/Navbar'
 import Alert from '../../components/Alert'
-import '../../styles/student_results.css'
+import '../../styles/student_styles/student_results.css'
 
 export default function StudentResults() {
     useEffect(()=> { 

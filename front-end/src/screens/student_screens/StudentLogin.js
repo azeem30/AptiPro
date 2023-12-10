@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import Layout from '../../components/Layout';
 import Alert from '../../components/Alert';
-import '../../styles/student_login.css'; 
+import '../../styles/student_styles/student_login.css'; 
 
 export default function StudentLogin() {
   const navigate = useNavigate();

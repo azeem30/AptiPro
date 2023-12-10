@@ -3,7 +3,7 @@ import Navbar from '../../components/Navbar'
 import Layout from '../../components/Layout'
 import Alert from '../../components/Alert';
 import { useNavigate } from 'react-router-dom';
-import '../../styles/teacher_results.css'
+import '../../styles/teacher_styles/teacher_results.css'
 
 export default function TeacherResults() {
     useEffect(()=> { 

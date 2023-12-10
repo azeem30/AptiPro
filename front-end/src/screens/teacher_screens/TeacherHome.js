@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Layout from '../../components/Layout';
 import Navbar from '../../components/Navbar';
-import '../../styles/teacher_home.css'; // Import a CSS file for additional styles
+import '../../styles/teacher_styles/teacher_home.css'; // Import a CSS file for additional styles
 
 export default function TeacherHome() {
   return (
