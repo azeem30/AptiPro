@@ -84,6 +84,7 @@ const FileUploadPage = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [fileContents, setFileContents] = useState('');
   const [fileError, setFileError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0] || null;
@@ -103,10 +104,42 @@ const FileUploadPage = () => {
     document.getElementById('fileInput').value = null;
   };
 
-  const handleGenerateClick = () => {
-    const generatedContents = `Generated contents for ${selectedFile ? selectedFile.name : ''}`;
-    setFileContents(generatedContents);
-  };
+  const handleGenerateClick = async () => {
+    setIsLoading(true); 
+    setFileContents('');
+    if (!selectedFile) {
+      setFileError('Please select a file to upload.');
+      setIsLoading(false);
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('file', selectedFile);
+
+    try{
+      const response = await fetch('/upload', {
+        method: 'POST',
+        body: formData,
+      });
+      if (!response.ok) {
+        throw new Error(`Error uploading file: ${response.statusText}`);
+      }
+      const data = await response.json();
+      if (data.error) {
+        setFileError(data.error);
+      } else {
+        const formattedResults = data.questions.map((q, i) => `Q: ${q}\nA: ${data.answers[i]}`);
+        setFileContents(formattedResults.join('\n\n'));
+      }
+    }
+    catch(error){
+      console.error('Error processing file:', error);
+      setFileError('An error occurred while processing the file. Please try again.');
+    }
+    finally {
+      setIsLoading(false); 
+    }
+  }
 
   return (
     <Layout>
