@@ -68,6 +68,7 @@ const ReadOnlyBox = styled.textarea`
   border-radius: 4px;
   padding: 10px;
   font-size: 14px;
+  height: ${(props) => (props.hasContent ? `${props.scrollHeight}px` : 'auto')};
   display: ${(props) => (props.hasContent ? 'block' : 'none')};
 `;
 
@@ -80,11 +81,20 @@ const Space = styled.div`
   margin-bottom: 15px;
 `;
 
+const ProgressContainer = styled.div`
+  margin-top: 10px;
+`;
+
+const ProgressBar = styled.progress`
+  width: 100%;
+`;
+
 const FileUploadPage = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [fileContents, setFileContents] = useState('');
   const [fileError, setFileError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0] || null;
@@ -107,6 +117,7 @@ const FileUploadPage = () => {
   const handleGenerateClick = async () => {
     setIsLoading(true); 
     setFileContents('');
+    setUploadProgress(0);
     if (!selectedFile) {
       setFileError('Please select a file to upload.');
       setIsLoading(false);
@@ -117,9 +128,13 @@ const FileUploadPage = () => {
     formData.append('file', selectedFile);
 
     try{
-      const response = await fetch('/upload', {
+      const response = await fetch('http://localhost:5000/upload', {
         method: 'POST',
         body: formData,
+        onUploadProgress: ProgressEvent => {
+          const progress = Math.round((progressEvent.loaded / progressEvent.total) * 100);
+          setUploadProgress(progress);
+        }
       });
       if (!response.ok) {
         throw new Error(`Error uploading file: ${response.statusText}`);
@@ -128,7 +143,7 @@ const FileUploadPage = () => {
       if (data.error) {
         setFileError(data.error);
       } else {
-        const formattedResults = data.questions.map((q, i) => `Q: ${q}\nA: ${data.answers[i]}`);
+        const formattedResults = data.map(item => `Q: ${item.question}\nA: ${item.answer}`);
         setFileContents(formattedResults.join('\n\n'));
       }
     }
@@ -138,6 +153,7 @@ const FileUploadPage = () => {
     }
     finally {
       setIsLoading(false); 
+      setFileError('');
     }
   }
 
@@ -163,7 +179,12 @@ const FileUploadPage = () => {
           <GenerateButton onClick={handleGenerateClick}>Generate</GenerateButton>
         </div>
         <Space />
-        <ReadOnlyBox value={fileContents} readOnly hasContent={fileContents !== ''} />
+        {isLoading && (
+          <ProgressContainer>
+            <ProgressBar value={uploadProgress} max="100" />
+          </ProgressContainer>
+        )}
+        <ReadOnlyBox value={fileContents} readOnly hasContent={fileContents !== ''} scrollHeight={document.getElementById('readOnlyBox')?.scrollHeight}/>
       </Container>
     </Layout>
   );
