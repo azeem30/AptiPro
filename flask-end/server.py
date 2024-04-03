@@ -7,7 +7,6 @@ import PyPDF2
 import textract
 from tqdm.auto import tqdm
 from haystack.document_stores import InMemoryDocumentStore
-from haystack.utils import print_questions
 from haystack.nodes import TextConverter, PreProcessor
 from haystack.nodes import QuestionGenerator, FARMReader
 from haystack.pipelines import QuestionAnswerGenerationPipeline
@@ -15,7 +14,7 @@ from haystack.pipelines import QuestionAnswerGenerationPipeline
 app = Flask(__name__)
 CORS(app)
 UPLOAD_FOLDER = 'uploaded_files'
-TEXT_FOLDER = 'generated_text\\untitled.txt'
+TEXT_FOLDER = 'flask-end\\generated_text\\untitled.txt'
 ALLOWED_EXTENSIONS = {'pdf', 'txt'}
 
 if not os.path.exists(UPLOAD_FOLDER):
