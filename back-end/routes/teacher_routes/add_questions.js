@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 const jwtSecret = "WelcomeToAptiproPlacementWebApplication";
-const question = require(`../../models/questionModels/questions`);
+const { Question } = require(`../../models/questionModels/questions`);
 
 const decodeToken = (token, secret) => {
     const decodedToken = jwt.verify(token, secret);
@@ -15,7 +15,7 @@ async (req, res) => {
         const authToken = req.body.signedToken;
         originalToken = decodeToken(authToken, jwtSecret);
         const randomInteger = Math.floor(Math.random() * 10);
-        await question.create({
+        await Question.create({
             questionId: randomInteger,
             questionText: req.body.questionData.questionText,
             option1: req.body.questionData.option1,

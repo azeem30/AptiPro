@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Layout from '../../components/Layout';
 import Navbar from '../../components/Navbar';
+import Alert from '../../components/Alert';
 
 const separator = {
   height: '0.5px'
@@ -9,7 +10,8 @@ const separator = {
 
 const Container = styled.div`
   background-color: white;
-  width: 400px;
+  width: 80%;
+  max-width: 600px;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
   border-radius: 8px;
   padding: 20px;
@@ -19,6 +21,28 @@ const Container = styled.div`
 const Title = styled.h4`
   color: #333;
   margin-bottom: 10px;
+`;
+
+const Table = styled.table`
+  width: 100%;
+  border-collapse: collapse;
+`;
+
+const TableHead = styled.thead`
+  background-color: #f2f2f2;
+`;
+
+const TableHeadCell = styled.th`
+  padding: 10px;
+  text-align: left;
+`;
+
+const TableBody = styled.tbody``;
+
+const TableRow = styled.tr``;
+
+const TableCell = styled.td`
+  padding: 10px;
 `;
 
 const FileInput = styled.input`
@@ -53,23 +77,25 @@ const GenerateButton = styled.button`
   }
 `;
 
+const DownloadButton = styled.button`
+  background-color: #4caf50;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 15px;
+  margin-left: 10px;
+  display: ${({ fetched }) => (fetched ? 'inline-block' : 'none')};
+  &:hover {
+    background-color: #45a049; 
+  }
+`;
+
 const FileNameDisplay = styled.div`
   margin-top: 10px;
   font-size: 14px;
   color: #555;
-`;
-
-const ReadOnlyBox = styled.textarea`
-  width: 100%;
-  min-height: 50px;
-  margin-bottom: 15px;
-  resize: none;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 10px;
-  font-size: 14px;
-  height: ${(props) => (props.hasContent ? `${props.scrollHeight}px` : 'auto')};
-  display: ${(props) => (props.hasContent ? 'block' : 'none')};
 `;
 
 const ErrorMessage = styled.div`
@@ -77,24 +103,39 @@ const ErrorMessage = styled.div`
   margin-top: 5px;
 `;
 
-const Space = styled.div`
-  margin-bottom: 15px;
+const Pagination = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 `;
 
-const ProgressContainer = styled.div`
-  margin-top: 10px;
-`;
-
-const ProgressBar = styled.progress`
-  width: 100%;
+const PageButton = styled.button`
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 5px 10px;
+  margin: 0 5px;
+  &:hover {
+    background-color: #45a049;
+  }
 `;
 
 const FileUploadPage = () => {
   const [selectedFile, setSelectedFile] = useState(null);
-  const [fileContents, setFileContents] = useState('');
+  const [fileContents, setFileContents] = useState([]);
   const [fileError, setFileError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [uploadProgress, setUploadProgress] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [fetched, setFetched] = useState(false);
+  const [message, setMessage] = useState({
+    info: null,
+    status: null
+  });
+  var signedToken = localStorage.getItem('authToken');
+
+  const itemsPerPage = 5;
 
   const handleFileChange = (e) => {
     const file = e.target.files[0] || null;
@@ -114,10 +155,31 @@ const FileUploadPage = () => {
     document.getElementById('fileInput').value = null;
   };
 
+  const storeInMongo = async (data) => {
+    const response = await fetch('http://localhost:8000/api/add_desc_questions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({signedToken, data})
+    });
+    const msg = await response.json();
+    if(msg.success){
+      setMessage({...message, info: 'Sent to Database Successfully', status: 'success'});
+    }
+    else if(msg.success || msg.duplication){
+      setMessage({...message, info: 'Data already exists in Database', status: 'warning'});
+    }
+    else{
+      setMessage({...message, info: 'Failed to send to Database', status: 'danger'});
+    }
+  };
+
   const handleGenerateClick = async () => {
-    setIsLoading(true); 
-    setFileContents('');
-    setUploadProgress(0);
+    setIsLoading(true);
+    setFileContents([]);
+    setCurrentPage(1);
+
     if (!selectedFile) {
       setFileError('Please select a file to upload.');
       setIsLoading(false);
@@ -127,14 +189,10 @@ const FileUploadPage = () => {
     const formData = new FormData();
     formData.append('file', selectedFile);
 
-    try{
+    try {
       const response = await fetch('http://localhost:5000/upload', {
         method: 'POST',
         body: formData,
-        onUploadProgress: ProgressEvent => {
-          const progress = Math.round((progressEvent.loaded / progressEvent.total) * 100);
-          setUploadProgress(progress);
-        }
       });
       if (!response.ok) {
         throw new Error(`Error uploading file: ${response.statusText}`);
@@ -143,19 +201,36 @@ const FileUploadPage = () => {
       if (data.error) {
         setFileError(data.error);
       } else {
-        const formattedResults = data.map(item => `Q: ${item.question}\nA: ${item.answer}`);
-        setFileContents(formattedResults.join('\n\n'));
+        setFileContents(data);
+        setFetched(true);
+        storeInMongo(data); 
       }
-    }
-    catch(error){
+    } catch (error) {
       console.error('Error processing file:', error);
       setFileError('An error occurred while processing the file. Please try again.');
-    }
-    finally {
-      setIsLoading(false); 
+    } finally {
+      setIsLoading(false);
       setFileError('');
     }
-  }
+  };
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const handleDownloadClick = () => {
+    const blob = new Blob([JSON.stringify(fileContents)], { type: 'application/json' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'data.json'; 
+    a.click();
+    window.URL.revokeObjectURL(url);
+  };
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = fileContents.slice(indexOfFirstItem, indexOfLastItem);
 
   return (
     <Layout>
@@ -171,20 +246,35 @@ const FileUploadPage = () => {
         />
         {selectedFile && <FileNameDisplay className='d-flex justify-content-center'>{selectedFile.name}</FileNameDisplay>}
         <ErrorMessage className='d-flex justify-content-center'>{fileError}</ErrorMessage>
-        <Space />
-        <div className="justify-content-center" style={{ display: 'flex', alignItems: 'center' }}>
-          <FileInputLabel htmlFor="fileInput" style={{ marginRight: '10px' }}>
-            Choose File
-          </FileInputLabel>
+        <div className="d-flex justify-content-center">
+          <FileInputLabel htmlFor="fileInput">Choose File</FileInputLabel>
           <GenerateButton onClick={handleGenerateClick}>Generate</GenerateButton>
+          <DownloadButton fetched={fetched} onClick={handleDownloadClick}>Download</DownloadButton>
         </div>
-        <Space />
-        {isLoading && (
-          <ProgressContainer>
-            <ProgressBar value={uploadProgress} max="100" />
-          </ProgressContainer>
-        )}
-        <ReadOnlyBox value={fileContents} readOnly hasContent={fileContents !== ''} scrollHeight={document.getElementById('readOnlyBox')?.scrollHeight}/>
+        <Alert info={message.info} status={message.status} />
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableHeadCell>No.</TableHeadCell>
+              <TableHeadCell>Question</TableHeadCell>
+              <TableHeadCell>Answer</TableHeadCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {currentItems.map((item, index) => (
+              <TableRow key={index}>
+                <TableCell>{indexOfFirstItem + index + 1}</TableCell>
+                <TableCell>{item.question}</TableCell>
+                <TableCell>{item.answer}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+        <Pagination>
+          {Array.from({ length: Math.ceil(fileContents.length / itemsPerPage) }, (_, i) => (
+            <PageButton key={i + 1} onClick={() => handlePageChange(i + 1)}>{i + 1}</PageButton>
+          ))}
+        </Pagination>
       </Container>
     </Layout>
   );

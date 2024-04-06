@@ -1,0 +1,12 @@
+flask
+flask_cors
+httpx
+tqdm
+sentencepiece
+setuptools
+fitz
+transformers
+farm-haystack
+six
+PyPDF2
+textract

@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 const jwtSecret = "WelcomeToAptiproPlacementWebApplication";
-const question = require(`../../models/questionModels/questions`);
+const { Question } = require(`../../models/questionModels/questions`);
 
 const decodeToken = (token, secret) => {
     const decodedToken = jwt.verify(token, secret);
@@ -18,25 +18,23 @@ const randomizeQuestions = (fetched) => {
     return randomArray;
 }
 
-router.post('/fetch_questions',
-async (req, res) => {
-    try{
+router.post('/fetch_questions', async (req, res) => {
+    try {
         const authToken = req.body.signedToken;
         originalToken = decodeToken(authToken, jwtSecret);
         const subjectFilter = req.body.testData.testSubject;
         const difficultyFilter = req.body.testData.testDifficulty;
         const questionCount = req.body.testData.testQuestionCount;
         let difficultyQuery = {};
-        if(difficultyFilter == 'Easy' || difficultyFilter==='Medium' || difficultyFilter==='Hard'){
-            difficultyQuery = {questionDifficulty: difficultyFilter};
+        if (difficultyFilter === 'Easy' || difficultyFilter === 'Medium' || difficultyFilter === 'Hard') {
+            difficultyQuery = { questionDifficulty: difficultyFilter };
         }
-        const fetchedQuestions = await question.find({subjectName: subjectFilter, ...difficultyQuery}).limit(questionCount);
+        const fetchedQuestions = await Question.find({ subjectName: subjectFilter, ...difficultyQuery }).limit(questionCount);
         const randomizedFetchedQuestions = randomizeQuestions(fetchedQuestions);
-        res.json({success: true, randomizedFetchedQuestions});
-    }
-    catch(error){
+        res.json({ success: true, randomizedFetchedQuestions });
+    } catch (error) {
         console.error(error);
-        res.json({success: false});
+        res.json({ success: false });
     }
 });
 
