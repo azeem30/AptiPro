@@ -5,11 +5,8 @@ AptiPro is a full-stack web application designed to assist users in preparing fo
 ## Table of Contents
 
 - [Features](#features)
-- [Directory Structure](#directory-structure)
 - [Setup](#setup)
 - [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Features
 
