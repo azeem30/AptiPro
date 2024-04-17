@@ -64,7 +64,7 @@ export default function CreateTest() {
         createTest();
     };
     const getTeacherSubjects = async () => {
-        const response = await fetch("https://backend-sigma-beige.vercel.app/api/subjects", {
+        const response = await fetch("http://localhost:8000/api/subjects", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -81,7 +81,7 @@ export default function CreateTest() {
         }
     }
     const createTest = async () => {
-        const response = await fetch("https://backend-sigma-beige.vercel.app/api/create_test", {
+        const response = await fetch("http://localhost:8000/api/create_test", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

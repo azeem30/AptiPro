@@ -17,7 +17,7 @@ export default function TeacherLogin() {
 
     const loginTeacher = async (event) => {
         event.preventDefault();
-        const response = await fetch("https://backend-sigma-beige.vercel.app/api/teacher_login", {
+        const response = await fetch("http://localhost:8000/api/teacher_login", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

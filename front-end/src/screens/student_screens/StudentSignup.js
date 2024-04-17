@@ -51,7 +51,7 @@ export default function StudentSignup() {
   };
   const registerStudent = async (event) => {
     event.preventDefault();
-    const response = await fetch("https://backend-sigma-beige.vercel.app/api/student_signup", {
+    const response = await fetch("http://localhost:8000/api/student_signup", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

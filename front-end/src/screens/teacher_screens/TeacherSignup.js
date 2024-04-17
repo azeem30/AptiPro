@@ -34,7 +34,7 @@ export default function TeacherSignup() {
     };
     const registerTeacher = async (event) => {
       event.preventDefault();
-      const response = await fetch('https://backend-sigma-beige.vercel.app/api/teacher_signup', {
+      const response = await fetch('http://localhost:8000/api/teacher_signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

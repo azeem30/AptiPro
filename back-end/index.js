@@ -3,18 +3,12 @@ const connectToDatabase = require('./database')
 const app = express();
 const port = 8000;
 
-app.use(express.json());
-
 app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "https://frontend-alpha-eight-79.vercel.app");
-    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-    res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
-
-app.get("/", (req, res) => {
-    res.json("Welcome to AptiPro");
-});
+app.use(express.json());
 app.use('/api', require("./routes/teacher_routes/teacher_signup"));
 app.use('/api', require("./routes/teacher_routes/teacher_login"));
 app.use('/api', require("./routes/student_routes/student_signup"));

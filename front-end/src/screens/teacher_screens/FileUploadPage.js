@@ -156,7 +156,7 @@ const FileUploadPage = () => {
   };
 
   const storeInMongo = async (data) => {
-    const response = await fetch('https://backend-sigma-beige.vercel.app/api/add_desc_questions', {
+    const response = await fetch('http://localhost:8000/api/add_desc_questions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
