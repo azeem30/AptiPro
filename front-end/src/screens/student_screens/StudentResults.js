@@ -22,7 +22,7 @@ export default function StudentResults() {
     const filteredResponses = filter ? responses.filter((result) => result.responseSubject === filter) : responses;
     var signedToken = localStorage.getItem('authToken');
     const getStudentSubjects = async () => {
-        const response = await fetch("http://localhost:8000/api/subjects", {
+        const response = await fetch("https://backend-sigma-beige.vercel.app/api/subjects", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

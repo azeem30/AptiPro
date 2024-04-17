@@ -22,7 +22,7 @@ export default function TeacherResults() {
     });
     const filteredResponses = filter ? responses.filter((result) => result.responseSubject === filter) : responses;
     const getTeacherSubjects = async () => {
-        const response = await fetch("http://localhost:8000/api/subjects", {
+        const response = await fetch("https://backend-sigma-beige.vercel.app/api/subjects", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -37,7 +37,7 @@ export default function TeacherResults() {
         }
     };
     const getResponses = async () => {
-        const response = await fetch("http://localhost:8000/api/fetch_responses", {
+        const response = await fetch("https://backend-sigma-beige.vercel.app/api/fetch_responses", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

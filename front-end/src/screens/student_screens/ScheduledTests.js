@@ -15,7 +15,7 @@ export default function ScheduledTests() {
     });
     var signedToken = localStorage.getItem('authToken');
     const getScheduledTests = async () => {
-        const response = await fetch("http://localhost:8000/api/scheduled_tests", {
+        const response = await fetch("https://backend-sigma-beige.vercel.app/api/scheduled_tests", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
