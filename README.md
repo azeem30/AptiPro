@@ -46,5 +46,6 @@ AptiPro is a full-stack web application designed to assist users in preparing fo
 
 Once the servers are running, you can access the application in your web browser. The default URLs might be:
 
-- Back-end: `http://localhost:your_port`
+- Back-end: `http://localhost:9999/api/`
+- Flask-end: `http://localhost:5000`
 - Front-end: `http://localhost:3000`
