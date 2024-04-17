@@ -51,6 +51,28 @@ export default function StudentResults() {
             setMessage({...message, info: 'Failed to fetch responses', status: 'danger'});
         }
     };
+    const getReport = async (studentId, responseId) => {
+        const response = await fetch("http://localhost:5000/report", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({studentId, responseId})
+        });
+        const data = await response.json()
+        if(data){
+            setMessage({...message, info: 'Report Downloaded Successfully', status: 'success'});
+            setTimeout(() => {
+                setMessage({...message, info: null, status: null});
+            })
+        }
+        else{
+            setMessage({...message, info: 'Failed to Download Report', status: 'danger'});
+            setTimeout(() => {
+                setMessage({...message, info: null, status: null});
+            })
+        }
+    };
     const handleFilter = (appliedFilter) => {
         setFilter(appliedFilter);
     };
@@ -140,6 +162,7 @@ export default function StudentResults() {
                                     <th className='table-cell fw-semibold'>Difficulty</th>
                                     <th className='table-cell fw-semibold'>Subject</th>
                                     <th className='table-cell fw-semibold'>Details</th>
+                                    <th className='table-cell fw-semibold'>Report</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -155,6 +178,11 @@ export default function StudentResults() {
                                         <td className='table-cell'>
                                             <button onClick={() => { openResult(result); }} className='btn btn-success view-button'>
                                                 View
+                                            </button>
+                                        </td>
+                                        <td className='table-cell'>
+                                            <button onClick={() => {getReport(result.studentId, result.responseId)}} className='btn btn-success download-button'>
+                                                Download
                                             </button>
                                         </td>
                                     </tr>

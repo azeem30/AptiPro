@@ -10,3 +10,5 @@ farm-haystack
 six
 PyPDF2
 textract
+matplotlib
+pymongo

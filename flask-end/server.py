@@ -9,13 +9,20 @@ from tqdm.auto import tqdm
 from haystack.document_stores import InMemoryDocumentStore
 from haystack.nodes import TextConverter, PreProcessor
 from haystack.nodes import QuestionGenerator, FARMReader
+from pymongo import MongoClient
 from haystack.pipelines import QuestionAnswerGenerationPipeline
+from report import generate_report
+import threading
 
 app = Flask(__name__)
 CORS(app)
 UPLOAD_FOLDER = 'uploaded_files'
 TEXT_FOLDER = 'generated_text\\untitled.txt'
 ALLOWED_EXTENSIONS = {'pdf', 'txt'}
+
+client = MongoClient("mongodb+srv://azeem:Azeem123@cluster0.cn88yxf.mongodb.net/aptiprodb?retryWrites=true&w=majority")
+db = client["aptiprodb"]
+collection = db["responses"]
 
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
@@ -91,6 +98,18 @@ def structure_results(filtered_results):
                 top_answer = answers[i][0].answer
                 pairs.append({'question': question, 'answer': top_answer})
     return json.dumps(pairs, indent=4)
+
+@app.route('/report', methods=['POST'])
+def report():
+    try:
+        data = request.get_json()
+        student_id = data.get('studentId')
+        response_id = data.get('responseId')
+        generate_report(student_id, response_id, collection)
+        return {"success": True}
+    except Exception as e:
+        return {"success": False}
+
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
