@@ -9,7 +9,9 @@ app.use((req, res, next) => {
     next();
 });
 app.use(express.json());
-
+app.get("/", (req, res) => {
+    res.json("Welcome to AptiPro");
+});
 app.use('/api', require("./routes/teacher_routes/teacher_signup"));
 app.use('/api', require("./routes/teacher_routes/teacher_login"));
 app.use('/api', require("./routes/student_routes/student_signup"));
