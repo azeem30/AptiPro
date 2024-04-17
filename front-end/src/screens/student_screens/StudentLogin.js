@@ -22,6 +22,7 @@ export default function StudentLogin() {
       headers: {
         'Content-Type': 'application/json'
       },
+      mode: 'cors',
       body: JSON.stringify({ studentCred })
     });
     const data = await response.json();
