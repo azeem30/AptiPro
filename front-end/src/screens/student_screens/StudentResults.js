@@ -22,7 +22,7 @@ export default function StudentResults() {
     const filteredResponses = filter ? responses.filter((result) => result.responseSubject === filter) : responses;
     var signedToken = localStorage.getItem('authToken');
     const getStudentSubjects = async () => {
-        const response = await fetch("http://localhost:8000/api/subjects", {
+        const response = await fetch("https://back-end-rosy-five.vercel.app/api/subjects", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -37,7 +37,7 @@ export default function StudentResults() {
         }
     };  
     const getResponses = async () => {
-        const response = await fetch("http://localhost:8000/api/fetch_responses", {
+        const response = await fetch("https://back-end-rosy-five.vercel.app/api/fetch_responses", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
