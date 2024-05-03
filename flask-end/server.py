@@ -4,15 +4,14 @@ from werkzeug.utils import secure_filename
 import os
 import json
 import PyPDF2
-import textract
 from tqdm.auto import tqdm
+import fitz
 from haystack.document_stores import InMemoryDocumentStore
 from haystack.nodes import TextConverter, PreProcessor
 from haystack.nodes import QuestionGenerator, FARMReader
 from pymongo import MongoClient
 from haystack.pipelines import QuestionAnswerGenerationPipeline
 from report import generate_report
-import threading
 
 app = Flask(__name__)
 CORS(app)
@@ -35,12 +34,19 @@ def allowed_file(filename):
 def extract_text_from_pdf(pdf_path):
     text = ""
     try:
-        with open(pdf_path, 'rb') as f:
-            pdf_reader = PyPDF2.PdfReader(f)
-            for page_number in range(len(pdf_reader.pages)):
-                text += pdf_reader.pages[page_number].extract_text()
+        if pdf_path.endswith('.pdf'):
+            with open(pdf_path, 'rb') as f:
+                pdf_reader = PyPDF2.PdfReader(f)
+                for page_number in range(len(pdf_reader.pages)):
+                    text += pdf_reader.pages[page_number].extract_text()
+        elif pdf_path.endswith('.txt'):
+            with fitz.open(pdf_path) as f:
+                for page in f:
+                    text += page.get_text()
+        else:
+            text = None
     except Exception as e:
-        text = textract.process(pdf_path).decode('utf-8')
+        text = None
     return text
 
 def write_text(text):
@@ -125,7 +131,7 @@ def upload_file():
         filename = secure_filename(file.filename)
         filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         file.save(filepath)
-        text = extract_text_from_pdf(filepath) if filename.endswith('.pdf') else file.read().decode("utf-8") 
+        text = extract_text_from_pdf(filepath)
         write_text(text) 
         docs_default = preprocess()
         document_store = write_to_document_store(docs_default)
