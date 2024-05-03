@@ -1,0 +1,67 @@
+{
+    "version": 2,
+    "builds": [
+        {
+            "src": "*.js", 
+            "use": "@vercel/node"
+        }
+    ],
+    "routes": [
+        {
+          "src": "/api/teacher_signup",
+          "dest": "/routes/teacher_routes/teacher_signup.js"
+        },
+        {
+          "src": "/api/teacher_login",
+          "dest": "/routes/teacher_routes/teacher_login.js"
+        },
+        {
+          "src": "/api/student_signup",
+          "dest": "/routes/student_routes/student_signup.js"
+        },
+        {
+          "src": "/api/student_login",
+          "dest": "/routes/student_routes/student_login.js"
+        },
+        {
+          "src": "/api/subjects",
+          "dest": "/routes/common_routes/subjects.js"
+        },
+        {
+          "src": "/api/create_test",
+          "dest": "/routes/teacher_routes/create_test.js"
+        },
+        {
+          "src": "/api/scheduled_tests",
+          "dest": "/routes/student_routes/scheduled_tests.js"
+        },
+        {
+          "src": "/api/fetch_questions",
+          "dest": "/routes/student_routes/fetch_questions.js"
+        },
+        {
+          "src": "/api/submit_test",
+          "dest": "/routes/student_routes/submit_test.js"
+        },
+        {
+          "src": "/api/fetch_responses",
+          "dest": "/routes/common_routes/fetch_responses.js"
+        },
+        {
+          "src": "/api/add_questions",
+          "dest": "/routes/teacher_routes/add_questions.js"
+        },
+        {
+          "src": "/api/add_desc_questions",
+          "dest": "/routes/teacher_routes/add_desc_questions.js"
+        },
+        {
+          "src": "/api/profile",
+          "dest": "/routes/common_routes/profile.js"
+        },
+        {
+          "src": "/(.*)",
+          "dest": "/index.js"
+        }
+    ]
+}
