@@ -13,3 +13,4 @@ textract
 matplotlib
 pymongo
 pdfplumber
+nltk
