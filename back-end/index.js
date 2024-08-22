@@ -1,14 +1,10 @@
 const express = require('express')
 const connectToDatabase = require('./database')
 const app = express();
-const port = process.env.PORT || 8000;
+const port = 8000;
 
 app.use((req, res, next) => {
-    const allowedOrigins = ["http://localhost:3000", "https://aptipro-backend.onrender.com"];
-    const origin = req.headers.origin;
-    if (allowedOrigins.includes(origin)) {
-        res.setHeader("Access-Control-Allow-Origin", origin);
-    }
+    res.setHeader("Access-Control-Allow-Origin", "https://front-end-taupe-mu.vercel.app/");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
