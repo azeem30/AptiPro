@@ -33,4 +33,24 @@ const questionSchema = new Schema({
     }
 });
 
-module.exports = mongoose.model('questions', questionSchema);
+const descQuestionSchema = new Schema({
+    question : {
+        type: String,
+        required: true,
+        unique: true
+    },
+    answer : {
+        type: String,
+        required: true,
+        unique: true
+    }
+    ,
+    context : {
+        type: String,
+    }
+});
+
+const Question = mongoose.model('questions', questionSchema);
+const DescQuestion = mongoose.model('descQuestions', descQuestionSchema);
+
+module.exports = { Question, DescQuestion };

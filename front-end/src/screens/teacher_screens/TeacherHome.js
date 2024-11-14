@@ -18,6 +18,14 @@ export default function TeacherHome() {
           </div>
         </div>
         <div className="card">
+          <img src="https://t3.ftcdn.net/jpg/03/13/38/76/360_F_313387682_KpX3khk5AIdYeSdEMHF2RevCayLn2tqD.jpg" className="card-img-top" alt="Descripto"/>
+          <div className="card-body">
+            <h5 className="card-title">Descripto!</h5>
+            <p className="card-text">Generate questions and answers automatically.</p>
+            <Link to='/descripto' className="btn btn-primary">Try Descripto</Link>
+          </div>
+        </div>
+        <div className="card">
           <img src="https://img.paperform.co/fetch/f_jpg,w_1800/https://s3.amazonaws.com/paperform-blog/2020/12/How-To-Analyze-Survey-Results.png" className="card-img-top" alt="Analyze Results"/>
           <div className="card-body">
             <h5 className="card-title">Analyze the Results!</h5>

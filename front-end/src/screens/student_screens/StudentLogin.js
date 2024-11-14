@@ -17,11 +17,12 @@ export default function StudentLogin() {
 
   const loginStudent = async (event) => {
     event.preventDefault();
-    const response = await fetch("http://localhost:8000/api/student_login", {
+    const response = await fetch("https://back-end-rosy-five.vercel.app/api/student_login", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
+      mode: 'cors',
       body: JSON.stringify({ studentCred })
     });
     const data = await response.json();

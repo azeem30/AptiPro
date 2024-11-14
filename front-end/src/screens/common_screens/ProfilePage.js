@@ -20,7 +20,7 @@ export default function ProfilePage() {
     const sideData = queryParams.get('side');
     var signedToken = localStorage.getItem('authToken');
     const getProfile = async () => {
-        const response = await fetch("http://localhost:8000/api/profile", {
+        const response = await fetch("https://back-end-rosy-five.vercel.app/api/profile", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

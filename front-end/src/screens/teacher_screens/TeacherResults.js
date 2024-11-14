@@ -22,7 +22,7 @@ export default function TeacherResults() {
     });
     const filteredResponses = filter ? responses.filter((result) => result.responseSubject === filter) : responses;
     const getTeacherSubjects = async () => {
-        const response = await fetch("http://localhost:8000/api/subjects", {
+        const response = await fetch("https://back-end-rosy-five.vercel.app/api/subjects", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -49,6 +49,28 @@ export default function TeacherResults() {
             setResponses(data.combinedResults);
         }else{
             setMessage({...message, info: 'Failed to fetch responses', status: 'danger'});
+        }
+    };
+    const getReport = async (studentId, responseId) => {
+        const response = await fetch("http://localhost:5000/report", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({studentId, responseId})
+        });
+        const data = await response.json()
+        if(data){
+            setMessage({...message, info: 'Report Downloaded Successfully', status: 'success'});
+            setTimeout(() => {
+                setMessage({...message, info: null, status: null});
+            })
+        }
+        else{
+            setMessage({...message, info: 'Failed to Download Report', status: 'danger'});
+            setTimeout(() => {
+                setMessage({...message, info: null, status: null});
+            })
         }
     };
     const handleFilter = (appliedFilter) => {
@@ -126,6 +148,7 @@ export default function TeacherResults() {
                                         <th  className='col fw-semibold table-header'>Difficulty</th>
                                         <th  className='col fw-semibold table-header'>Subject</th>
                                         <th  className='col fw-semibold table-header'>Details</th>
+                                        <th  className='col fw-semibold table-header'>Report</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -143,6 +166,7 @@ export default function TeacherResults() {
                                                 <td className="col">{result.difficulty}</td>
                                                 <td className="col">{result.responseSubject}</td>
                                                 <td className="col"><button onClick={()=>{openResult(result);}} className='btn btn-success view-button'>View</button></td>
+                                                <td className="col"><button onClick={()=>{getReport(result.studentId, result.responseId);}} className='btn btn-success download-button'>Download</button></td>
                                             </tr>
                                         ))
                                     }

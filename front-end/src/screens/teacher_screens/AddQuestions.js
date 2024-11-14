@@ -34,7 +34,7 @@ export default function AddQuestions() {
         height: '0.5px'
     };
     const getTeacherSubjects = async () => {
-        const response = await fetch("http://localhost:8000/api/subjects", {
+        const response = await fetch("https://back-end-rosy-five.vercel.app/api/subjects", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -56,7 +56,7 @@ export default function AddQuestions() {
         setConfirmationBoxVisible(false);
     };
     const addQuestion = async () => {
-        const response = await fetch("http://localhost:8000/api/add_questions", {
+        const response = await fetch("https://back-end-rosy-five.vercel.app/api/add_questions", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

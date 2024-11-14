@@ -55,3 +55,15 @@
     border: none;
     cursor: pointer;
 }
+
+.download-button {
+    width: 90px;
+    font-size: 12px;
+    height: 30px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}

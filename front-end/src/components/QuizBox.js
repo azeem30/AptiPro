@@ -28,7 +28,7 @@ export default function QuizBox({testData}) {
     userSelect: 'none'
   };  
   const getQuestionsForQuiz = async () => {
-    const response = await fetch("http://localhost:8000/api/fetch_questions", {
+    const response = await fetch("https://back-end-rosy-five.vercel.app/api/fetch_questions", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -89,7 +89,7 @@ export default function QuizBox({testData}) {
   }; 
   const submitTest = async () => {
     var marksScored = calculateMarks();
-    const response = await fetch("http://localhost:8000/api/submit_test", {
+    const response = await fetch("https://back-end-rosy-five.vercel.app/api/submit_test", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
